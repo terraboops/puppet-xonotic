@@ -2,14 +2,14 @@
   "name": "puppet-xonotic",
   "version": "0.0.1",
   "author": "Tyler Mauthe",
-  "summary": "Install Xonotic",
+  "summary": "Everything you need to get started with Xonotic server.",
   "license": "Apache 2.0",
   "source": "https://github.com/tylermauthe/puppet-xonotic",
   "project_page": "https://github.com/tylermauthe/puppet-xonotic",
   "issues_url": "https://github.com/tylermauthe/puppet-xonotic/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
-    {"name":"puppetlabs-apt","version_requirement":">= 2.2.0"}
+    {"name":"nanliu-staging","version_requirement":">= 1.0.3"}
   ]
 }
 

@@ -8,22 +8,47 @@
 #
 # === Copyright
 #
-# Copyright 2015 Tyler Mauthe, unless otherwise noted.
+# Copyright 2015 Tyler Mauthe, but whatever.
 #
 class xonotic {
-	require ::apt
-	# Xonotic - playdeb repo
-	apt::source { 'playdeb':
-		location => 'http://archive.getdeb.net/ubuntu',
-		release  => 'wily-getdeb',
-		repos    => 'games',
-		key      => {
-			id     => '1958A549614CE21CFC27F4BAA8A515F046D7E7CF',
-			source => 'http://archive.getdeb.net/getdeb-archive.key',
+
+	include ::stdlib
+	include ::staging
+
+	file { '/srv/':
+		ensure => 'directory',
+	}
+
+	package { 'unzip':
+		ensure => 'installed'
+	}
+
+	package { 'upstart':
+		ensure => 'installed'
+	}
+
+	staging::deploy { 'xonotic-0.8.1.zip':
+		source => 'http://dl.xonotic.org/xonotic-0.8.1.zip',
+		target => '/srv/',
+		require => [File['/srv/'], Package['unzip']],
+		timeout => 0
+	}
+
+	if $xonotic_mappack_url {
+		file { 'xonotic-maps':
+			path => '/srv/xonotic-maps',
+			ensure => 'directory',
+		}
+
+		staging::deploy { 'map-pack':
+			source => $facts['xonotic-mappack-url'],
+			target => getparam(File['xonotic-maps'], 'path'),
+		}
+
+		include ::apache
+		class{ 'apache':
+			docroot => getparam(File['xonotic-maps'], 'path'),
 		}
 	}
-	package { 'xonotic':
-		ensure  => 'latest',
-		require => Apt::Source['playdeb']
-	}
+
 }
