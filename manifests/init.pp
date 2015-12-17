@@ -55,6 +55,8 @@ class xonotic {
 		staging::deploy { 'map-pack.tar':
 			source => $xonotic_map_url,
 			target => '/srv/Xonotic/data',
+			require => Staging::Deploy['xonotic-0.8.1.zip'],
+			timeout => 0
 		}
 
 	}
