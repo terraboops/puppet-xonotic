@@ -43,12 +43,13 @@ class xonotic {
 	service { 'xonotic':
 		ensure => 'running',
 		enable => true,
-		require => File['/lib/systemd/system/xonotic.service'],
+		require => File['/lib/systemd/system/xonotic.service']
 	}
 
 	if $xonotic_map_url {
 		class { 'apache':
 			docroot => '/srv/Xonotic/data',
+			ensure => 'installed'
 		}
 
 		staging::deploy { 'map-pack.tar':
