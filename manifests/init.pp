@@ -23,6 +23,10 @@ class xonotic {
 		ensure => 'installed'
 	}
 
+	package { 'vim':
+		ensure => 'installed'
+	}
+
 	staging::deploy { 'xonotic-0.8.1.zip':
 		source => 'http://dl.xonotic.org/xonotic-0.8.1.zip',
 		target => '/srv/',
