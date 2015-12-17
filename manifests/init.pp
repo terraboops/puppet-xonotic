@@ -56,6 +56,7 @@ class xonotic {
 		class { 'apache':
 			docroot => '/srv/Xonotic/data',
 			vhost_enable_dir => false,
+			require => Staging::Deploy['xonotic-0.8.1.zip'],
 			package_ensure => 'installed'
 		}
 
