@@ -51,6 +51,8 @@ class xonotic {
 	}
 
 	if $xonotic_map_url {
+		file {'/etc/apache2/ports.conf': }
+
 		class { 'apache':
 			docroot => '/srv/Xonotic/data',
 			vhost_enable_dir => false,
