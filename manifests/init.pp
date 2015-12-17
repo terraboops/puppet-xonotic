@@ -52,7 +52,7 @@ class xonotic {
 			ensure => 'directory',
 		}
 
-		staging::deploy { 'map-pack':
+		staging::deploy { 'map-pack.tar':
 			source => $xonotic_map_url,
 			target => getparam(File['xonotic-maps'], 'path'),
 		}
