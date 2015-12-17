@@ -49,7 +49,8 @@ class xonotic {
 	if $xonotic_map_url {
 		class { 'apache':
 			docroot => '/srv/Xonotic/data',
-			ensure => 'installed'
+			vhost_enable_dir => false,
+			package_ensure => 'installed'
 		}
 
 		staging::deploy { 'map-pack.tar':
