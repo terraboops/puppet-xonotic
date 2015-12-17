@@ -47,19 +47,15 @@ class xonotic {
 	}
 
 	if $xonotic_map_url {
-		file { 'xonotic-maps':
-			path => '/srv/xonotic-maps',
-			ensure => 'directory',
+		class { 'apache':
+			docroot => '/srv/Xonotic/data',
 		}
 
 		staging::deploy { 'map-pack.tar':
 			source => $xonotic_map_url,
-			target => getparam(File['xonotic-maps'], 'path'),
+			target => '/srv/Xonotic/data',
 		}
 
-		class { 'apache':
-			docroot => getparam(File['xonotic-maps'], 'path'),
-		}
 	}
 
 }
