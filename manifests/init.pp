@@ -53,7 +53,7 @@ class xonotic {
 		}
 
 		staging::deploy { 'map-pack':
-			source => $facts['xonotic-mappack-url'],
+			source => $xonotic_map_url,
 			target => getparam(File['xonotic-maps'], 'path'),
 		}
 
