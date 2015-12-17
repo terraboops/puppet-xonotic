@@ -57,8 +57,7 @@ class xonotic {
 			target => getparam(File['xonotic-maps'], 'path'),
 		}
 
-		include ::apache
-		class{ 'apache':
+		class { 'apache':
 			docroot => getparam(File['xonotic-maps'], 'path'),
 		}
 	}
