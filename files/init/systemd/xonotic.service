@@ -1,0 +1,9 @@
+[Unit]
+Description=Xonotic Daemon
+After=network.target
+
+[Service]
+ExecStart=/srv/Xonotic/xonotic-linux-dedicated.sh
+
+[Install]
+WantedBy=multi-user.target

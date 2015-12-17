@@ -23,10 +23,6 @@ class xonotic {
 		ensure => 'installed'
 	}
 
-	package { 'upstart':
-		ensure => 'installed'
-	}
-
 	staging::deploy { 'xonotic-0.8.1.zip':
 		source => 'http://dl.xonotic.org/xonotic-0.8.1.zip',
 		target => '/srv/',
@@ -34,7 +30,23 @@ class xonotic {
 		timeout => 0
 	}
 
-	if $xonotic_mappack_url {
+	file { '/lib/systemd/system/xonotic.service':
+		source => 'puppet:///modules/xonotic/init/systemd/xonotic.service',
+		require => Staging::Deploy['xonotic-0.8.1.zip']
+	}
+
+	file { '/srv/Xonotic/data/server.cfg':
+		source => 'puppet:///modules/xonotic/xonotic/server.cfg',
+		require => Staging::Deploy['xonotic-0.8.1.zip']
+	}
+
+	service { 'xonotic':
+		ensure => 'running',
+		enable => true,
+		require => File['/lib/systemd/system/xonotic.service'],
+	}
+
+	if $xonotic_map_url {
 		file { 'xonotic-maps':
 			path => '/srv/xonotic-maps',
 			ensure => 'directory',
